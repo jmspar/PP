@@ -13,7 +13,7 @@
 
 ### Library import
 
-# In[1]:
+# In[7]:
 
 import numpy as np #import sinh, cosh, exp, linspace, array, zeros, angle, pi # for numerical calculations
 import scipy.constants as cst # for physical constants, type help(cst) for details
@@ -24,7 +24,7 @@ from matplotlib.widgets import Slider # interactive slider in graph
 
 ### Physical parameters
 
-# In[2]:
+# In[12]:
 
 h2m = cst.hbar**2/2/cst.m_e/cst.e*1e18
 print 'hbar^2/2m_e = ', h2m, 'eV nm^2 \n'
@@ -34,7 +34,7 @@ print 'electron energy =', E, 'eV'
 k = np.sqrt(E/h2m)
 print 'electron wave number =', k, 'nm^-1 \n'
 
-V_0 = 1.001
+V_0 = 1
 print 'initial barrier height =', V_0, 'eV'
 a_0 = 2
 print 'initial barrier width =', a_0, 'nm'
@@ -42,7 +42,7 @@ print 'initial barrier width =', a_0, 'nm'
 
 ### Graph update
 
-# In[3]:
+# In[13]:
 
 def grupdate(V_0, a):
      
@@ -71,13 +71,19 @@ def grupdate(V_0, a):
           A = 1
           B = 0
           
-     elif E <= V_0 :
+     elif E < V_0 :
           K = np.sqrt((V_0-E)/h2m)
           T = np.exp(-1j*k*a)*2*k*K/(2*k*K * np.cosh(K*a) + 1j * (K**2-k**2) * np.sinh(K*a))
           R = -1j * T * np.exp(1j*k*a) * (k**2+K**2) * np.sinh(K*a) / (2*k*K)
           A = 1j * k * (1-R) / K
           B = 1 + R     
           
+     elif E == V_0 :
+          T = np.exp(-1j*k*a)*2*k/(2*k - 1j * k**2 * a)
+          R = -1j * T * np.exp(1j*k*a) * k**2 * a/2/k
+          A = 1j * k * (1-R)
+          B = 1 + R     
+
      else :
           K = np.sqrt((E-V_0)/h2m)
           K2 = K/k
@@ -100,6 +106,8 @@ def grupdate(V_0, a):
           elif 0 < v < a:
                if E < V_0 :
                     z.append(A*np.sinh(K*v) + B*np.cosh(K*v))
+               elif E == V_0 :
+                    z.append(A*v + B)
                else :
                     z.append(A*np.exp(1j*K*v) + B*np.exp(-1j*K*v))                    
           else :
@@ -120,7 +128,7 @@ def grupdate(V_0, a):
 
 ### Interactive window
 
-# In[4]:
+# In[14]:
 
 fig = plt.figure()
 
