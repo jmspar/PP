@@ -7,13 +7,9 @@
 # @author: Sabot Frédéric
 # tested on Python 3.4
 # 
-# JMS (Python 2.7): i=complex(0,1) replaced by 1j
-# interaction does not work (probably due to Python 2.7)
-# very compact, excellent idea for complex-number color plot
-# 
-# To-do:
-# numerical resolution (cf Boukhris)
-# 
+# Modified on Tue Nov 7 2017
+# @author: Jean-Marc Sparenberg
+# bugs corrected, unit definition based on scipy.constants, E=V_0 added
 
 ### Library import
 
@@ -46,7 +42,7 @@ print 'initial barrier width =', a_0, 'nm'
 
 ### Graph update
 
-# In[20]:
+# In[3]:
 
 def grupdate(V_0, a):
      
@@ -124,7 +120,7 @@ def grupdate(V_0, a):
 
 ### Interactive window
 
-# In[21]:
+# In[4]:
 
 fig = plt.figure()
 
