@@ -1,4 +1,6 @@
-# original code by BA2 student Corentin Simon (2017-2018), to be improved!
+# original Python 3 code by BA2 student Corentin Simon (2017-2018), to be improved!
+# to run, type "python3 simon_1D.py" in command line
+# (after installing Python 3 with required libraries and downloading the file!)
 # Jean-Marc Sparenberg
 
 from math import sin, pi,cos
