@@ -57,7 +57,7 @@ alpha = 1
 omega = k_0**2 * alpha / 2
 default_a = 1
 a = default_a
-a_min = 0.5
+a_min = 0.1
 a_max = 5
 delta_start = -4
 
