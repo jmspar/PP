@@ -1,19 +1,20 @@
 
 # coding: utf-8
 
-## Stationary scattering state for electron on one-dimensional constant barrier 
+# # Stationary scattering state for electron on one-dimensional constant barrier 
 
 # Created on Thu Feb  9 19:13:48 2017
-# @author: Sabot Frédéric
+# @author: Sabot Frédéric (and other students)
 # tested on Python 3.4
 # 
 # Modified on Tue Nov 7 2017
 # @author: Jean-Marc Sparenberg
 # bugs corrected, unit definition based on scipy.constants, E=V_0 added
 
-### Library import
+# ## Library import
 
-# In[7]:
+# In[1]:
+
 
 import numpy as np #import sinh, cosh, exp, linspace, array, zeros, angle, pi # for numerical calculations
 import scipy.constants as cst # for physical constants, type help(cst) for details
@@ -22,27 +23,29 @@ import matplotlib.cm as cm # color maps for complex numbers
 from matplotlib.widgets import Slider # interactive slider in graph
 
 
-### Physical parameters
+# ## Physical parameters
 
-# In[12]:
+# In[2]:
+
 
 h2m = cst.hbar**2/2/cst.m_e/cst.e*1e18
-print 'hbar^2/2m_e = ', h2m, 'eV nm^2 \n'
+print ('hbar^2/2m_e = ', h2m, 'eV nm^2 \n')
 
 E = 1
-print 'electron energy =', E, 'eV'
+print ('electron energy =', E, 'eV')
 k = np.sqrt(E/h2m)
-print 'electron wave number =', k, 'nm^-1 \n'
+print ('electron wave number =', k, 'nm^-1 \n')
 
 V_0 = 1
-print 'initial barrier height =', V_0, 'eV'
+print ('initial barrier height =', V_0, 'eV')
 a_0 = 2
-print 'initial barrier width =', a_0, 'nm'
+print ('initial barrier width =', a_0, 'nm')
 
 
-### Graph update
+# ## Graph update
 
-# In[13]:
+# In[3]:
+
 
 def grupdate(V_0, a):
      
@@ -126,9 +129,10 @@ def grupdate(V_0, a):
      ax.pcolormesh(X, Y, C, cmap=cm.hsv, vmin=-np.pi, vmax=np.pi)
 
 
-### Interactive window
+# ## Interactive window
 
-# In[14]:
+# In[13]:
+
 
 fig = plt.figure()
 
@@ -153,10 +157,7 @@ def sliders_on_changed(val):
 V_slider.on_changed(sliders_on_changed)
 a_slider.on_changed(sliders_on_changed)
 
+#%matplotlib inline
+#%matplotlib widgets qt tk notebook #nothing seems to work!
 plt.show()
-
-
-# In[ ]:
-
-
 
