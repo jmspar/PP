@@ -10,7 +10,7 @@ The packages needed to run this code are **tkinter**, **time**, **threading** (t
 
 ## Download
 
-To download the code, either use GitHub to download (and follow!) the whole PP project, or simply download the zipped file containing the source code `PP_1D_GUI_source_code.zip` and extract files from it.
+To download the code, either use GitHub to download (and follow!) the whole PP project, or simply download the zipped file containing the source code [PP_1D_GUI_source_code.zip](PP_1D_GUI_source_code.zip) and extract files from it.
 
 ## Usage
 
