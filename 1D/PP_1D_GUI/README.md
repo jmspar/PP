@@ -8,6 +8,10 @@ Created by [Loric Vandentempel](https://github.com/loricvdt/)
 
 The packages needed to run this code are **tkinter**, **time**, **threading** (these may already come with the Python installation), **matplotlib** and **numpy**
 
+## Download
+
+To download the code, either use GitHub to download (and follow!) the whole PP project, or simply download the zipped file containing the source code `PP_1D_GUI_source_code.zip` and extract files from it.
+
 ## Usage
 
 To run the application, use Python 3: `python main.py` or `python3 main.py`
