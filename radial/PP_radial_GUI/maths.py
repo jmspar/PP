@@ -5,7 +5,7 @@ if __name__ == "__main__":
 import numpy as np
 
 # Calculation range (nm)
-x_min = -8
+x_min = 0
 x_max = 10
 calculations = 1000
 
