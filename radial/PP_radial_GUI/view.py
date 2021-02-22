@@ -42,7 +42,7 @@ ax = figure.add_subplot(111)
 ax.set_xlim(maths.x_min, maths.x_max)
 ax.set_ylim(maths.E_min, maths.E_max)
 ax.set_ylabel('Energy (eV)')
-ax.set_xlabel('Position (nm)')
+ax.set_xlabel('Radius (nm)')
 ax.set_facecolor((1, 1, 1, 0))
 
 ax2 = ax.twinx()
