@@ -17,7 +17,7 @@ pause_icon = "⏸"
 
 # Create window
 window = tk.Tk()
-window.title("PP GUI")
+window.title("PP_radial_GUI")
 window.iconbitmap("")
 window.resizable(False, False)
 window.protocol("WM_DELETE_WINDOW", exit)
@@ -47,7 +47,7 @@ ax.set_facecolor((1, 1, 1, 0))
 
 ax2 = ax.twinx()
 ax2.set_ylim(maths.psi_min, maths.psi_max)
-ax2.set_ylabel('Wave function')
+ax2.set_ylabel('Wave function (nm$^{-1/2}$)')
 ax2.set_zorder(-1)
 
 maths.calculate_energy()
@@ -70,7 +70,7 @@ wave_function_color_mesh = None
 def plot_wave_function_abs():
 	global wave_function_abs
 	if show_abs.get():
-		wave_function_abs, = ax2.plot(maths.psi[0], np.absolute(maths.psi[1]), 'k', linewidth=1, label="Probability density")
+		wave_function_abs, = ax2.plot(maths.psi[0], np.absolute(maths.psi[1]), 'k', linewidth=1, label="Modulus")
 	elif wave_function_abs is not None:
 		wave_function_abs.remove()
 	plt.draw()
@@ -131,7 +131,7 @@ V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, reso
 V_1_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Potential after barrier (eV)", showvalue=0)
 barrier_start_slider = tk.Scale(right_frame, state="disabled", from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier start (nm) [disabled]", showvalue=0)
 barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier end (nm)", showvalue=0)
-wave_number_slider = tk.Scale(right_frame, from_=maths.k_0_min, to=maths.k_0_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Wave number", showvalue=0)
+wave_number_slider = tk.Scale(right_frame, from_=maths.k_0_min, to=maths.k_0_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Wave number (1/nm)", showvalue=0)
 gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian distribution factor", showvalue=0)
 
 # Creating text boxes
@@ -153,7 +153,7 @@ wave_packet = tk.Radiobutton(right_frame, text="Wave packet", variable=wave_pack
 reset_button = tk.Button(right_frame, text="Reset")
 
 # Creating checkboxes
-abs_checkbox = tk.Checkbutton(right_frame, text="Probability density", variable=show_abs, command=plot_wave_function_abs)
+abs_checkbox = tk.Checkbutton(right_frame, text="Modulus", variable=show_abs, command=plot_wave_function_abs)
 real_checkbox = tk.Checkbutton(right_frame, text="Real part", variable=show_real, command=plot_wave_function_real)
 imaginary_checkbox = tk.Checkbutton(right_frame, text="Imaginary", variable=show_imaginary, command=plot_wave_function_imaginary)
 color_mesh_checkbox = tk.Checkbutton(right_frame, text="Phase colours", variable=show_color_mesh, command=plot_color_mesh)
