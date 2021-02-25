@@ -105,7 +105,7 @@ def update_e(value):
 		value = maths.E_min
 	maths.E = float(value)
 	view.E_slider.set(maths.E)
-	update_textbox(view.E_textbox, round(maths.E, 3))
+	update_textbox(view.E_textbox, round(maths.E, 4))
 	update_energy()
 
 
@@ -167,7 +167,7 @@ def reset_values():
 	""" Resets to initial values """
 	maths.E = maths.default_E
 	view.E_slider.set(maths.E)
-	update_textbox(view.E_textbox, round(maths.E, 3))
+	update_textbox(view.E_textbox, round(maths.E, 4))
 
 	maths.V_0 = maths.default_V_0
 	view.V_0_slider.set(maths.V_0)
