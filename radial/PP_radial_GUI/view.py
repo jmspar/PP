@@ -54,7 +54,10 @@ maths.calculate_energy()
 energy_plt, = ax.plot(maths.energy[0], maths.energy[1], 'g--', linewidth=1, label="Energy")
 
 maths.calculate_potential()
-potential_plt, = ax.plot(maths.potential[0], maths.potential[1], 'b', linewidth=1, label="Potential")
+potential_plt, = ax.plot(maths.potential[0], maths.potential[1], 'b--', linewidth=1, label="Potential")
+
+maths.calculate_effective_potential()
+effective_potential_plt, = ax.plot(maths.effective_potential[0], maths.effective_potential[1], 'b', linewidth=1, label="Effective potential")
 
 maths.calculate_wave_function()
 show_abs = tk.BooleanVar(value=False)

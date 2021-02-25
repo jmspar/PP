@@ -10,7 +10,7 @@ h2m = 1 # hbar**2/2m (to be calculated from physical constants)
 l = 2 # orbital angular momentum quantum number
 
 # Calculation range (nm)
-x_min = 0
+x_min = 0.000001
 x_max = 10
 calculations = 1000
 
@@ -25,6 +25,7 @@ default_barrier_end = 2
 barrier_end = default_barrier_end
 
 potential = [[], []]  # Potential plot data
+effective_potential = [[], []]  # Effective potential plot data
 
 # Energy
 default_E = 1
