@@ -158,6 +158,8 @@ def update_potential():
 	""" Updates the value of the potential and refreshes the view """
 	maths.calculate_potential()
 	view.potential_plt.set_data(maths.potential[0], maths.potential[1])
+	maths.calculate_effective_potential()
+	view.effective_potential_plt.set_data(maths.effective_potential[0], maths.effective_potential[1])
 	update_wave_function()
 	view.plt.draw()
 	view.canvas.draw()
