@@ -17,7 +17,7 @@ pause_icon = "⏸"
 
 # Create window
 window = tk.Tk()
-window.title("PP_radial_GUI")
+window.title("PP_radial_GUI (electron in spherical quantum dot)")
 window.iconbitmap("")
 window.resizable(False, False)
 window.protocol("WM_DELETE_WINDOW", exit)
