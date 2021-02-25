@@ -103,10 +103,6 @@ def update_barrier_end_from_tb(event):
 	update_barrier_end(good_value(view.barrier_end_textbox.get(), maths.barrier_end))
 
 
-def update_wave_number_from_tb(event):
-	update_wave_number(good_value(view.wave_number_textbox.get(), maths.k_0))
-
-
 def update_a_from_tb(event):
 	update_a(good_value(view.gaussian_textbox.get(), maths.a))
 
@@ -126,10 +122,10 @@ def good_value(value, old_value):
 
 def reset_values():
 	""" Resets to initial values """
-	maths.E = maths.default_E
-	view.E_slider.set(maths.E)
-	update_textbox(view.E_textbox, round(maths.E, 4))
 
+	maths.l = maths.default_l
+	view.l_var.set(maths.l)
+	
 	maths.V_barrier = maths.default_V_barrier
 	view.V_barrier_slider.set(maths.V_barrier)
 	update_textbox(view.V_barrier_textbox, round(maths.V_barrier, 3))
@@ -138,9 +134,9 @@ def reset_values():
 	view.barrier_end_slider.set(maths.barrier_end)
 	update_textbox(view.barrier_end_textbox, round(maths.barrier_end, 3))
 
-	maths.k_0 = maths.default_k_0
-	view.wave_number_slider.set(maths.k_0)
-	update_textbox(view.wave_number_textbox, round(maths.k_0, 3))
+	maths.E = maths.default_E
+	view.E_slider.set(maths.E)
+	update_textbox(view.E_textbox, round(maths.E, 4))
 
 	maths.a = maths.default_a
 	view.gaussian_slider.set(maths.a)
@@ -148,7 +144,17 @@ def reset_values():
 
 	maths.calculate_energy()
 	maths.calculate_potential()
+	maths.calculate_effective_potential()
 	view.energy_plt.set_data(maths.energy[0], maths.energy[1])
+	update_potential()
+	update_wave_function()
+	view.plt.draw()
+	view.canvas.draw()
+
+
+def change_l():
+	maths.l = view.l_var.get()
+	update_potential()
 	update_wave_function()
 	view.plt.draw()
 	view.canvas.draw()

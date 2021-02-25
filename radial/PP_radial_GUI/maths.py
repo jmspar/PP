@@ -5,9 +5,9 @@ if __name__ == "__main__":
 import numpy as np
 import scipy.special as sp
 
+# units
 hbar = 1 # (to be calculated from physical constants)
 h2m = 1 # hbar**2/2m (to be calculated from physical constants)
-l = 2 # orbital angular momentum quantum number
 
 # Calculation range (nm)
 x_min = 0.000001
@@ -15,6 +15,8 @@ x_max = 10
 calculations = 1000
 
 # Potential
+default_l = 1 # orbital angular momentum quantum number
+l = default_l
 default_V_barrier = -1.5
 V_barrier = default_V_barrier
 default_V_1 = 0

@@ -206,6 +206,11 @@ def initialise():
 	figure.canvas.mpl_connect('button_release_event', controller.button_release_callback)
 	figure.canvas.mpl_connect('motion_notify_event', controller.motion_notify_callback)
 
+	# Binding partial-wave radio button actions
+	s_wave.configure(command=controller.change_l)
+	p_wave.configure(command=controller.change_l)
+	d_wave.configure(command=controller.change_l)
+
 	# Binding command to sliders
 	E_slider.configure(command=controller.update_e)
 	V_barrier_slider.configure(command=controller.update_v_barrier)
@@ -218,7 +223,7 @@ def initialise():
 	t_play_pause.configure(command=controller.play_pause)
 	t_stop.configure(command=controller.stop)
 
-	# Binding radio button actions
+	# Binding state radio button actions
 	plane_wave.configure(command=controller.change_wave_type)
 	wave_packet.configure(command=controller.change_wave_type)
 
