@@ -99,7 +99,7 @@ def calculate_wave_function():
 
 def calculate_constants():
 	""" Calculate needed constants for the wave function """
-	global k_s, k_b, K_b, k_e, A, B, R, T, E
+	global k_s, k_b, K_b, k_e, A, B, R, T, E, td
 
 	k_s = np.sqrt((E - V_0) / E) * k_0
 	K_b = np.sqrt((V_barrier - E) / E) * k_0
@@ -108,6 +108,9 @@ def calculate_constants():
 	k_b = np.sqrt((E - V_barrier) / h2m + 0j)
 	x_s = barrier_start
 	x_e = barrier_end
+	
+	td = (k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_jn(l+1,k_e*x_e)-k_b*sp.spherical_jn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)) \
+            /(k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_yn(l+1,k_e*x_e)-k_b*sp.spherical_yn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)) # phase-shift tangent
 
 	# Preventing division by 0 (good enough for plotting)
 	if k_e == 0:
@@ -157,9 +160,12 @@ def gaussian(x, x_start, direction=1):
 
 
 def wave_function_value(x):
-        """ Returns value of the wave function at a x value """
+        """ Returns value of wave function in x """
         if x < barrier_end:
-#            return np.sin(k_b * x)/k_b
+#            return np.sin(k_b * x)/k_b #  l=0 only
             return sp.spherical_jn(l, k_b * x) * x / k_b**l
         else:  # x > barrier_end
-            return np.sin(k_e * x) / np.sin(k_e * barrier_end) * np.sin(k_b * barrier_end)/k_b
+#            return np.sin(k_e * x) / np.sin(k_e * barrier_end) * np.sin(k_b * barrier_end)/k_b  # l=0 only
+            return (sp.spherical_jn(l, k_e * x) - td * sp.spherical_yn(l, k_e * x)) \
+                 / (sp.spherical_jn(l, k_e * barrier_end) - td * sp.spherical_yn(l, k_e * barrier_end)) \
+                 *  sp.spherical_jn(l, k_b * barrier_end) * x/k_b**l
