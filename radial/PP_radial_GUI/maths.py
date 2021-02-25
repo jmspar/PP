@@ -3,8 +3,10 @@ if __name__ == "__main__":
 	exit()
 
 import numpy as np
+import scipy.special as sp
 
 h2m = 1 # hbar**2/2m (to be calculated from physical constants)
+l = 0 # orbital angular momentum quantum number
 
 # Calculation range (nm)
 x_min = 0
@@ -157,6 +159,7 @@ def gaussian(x, x_start, direction=1):
 def wave_function_value(x):
         """ Returns value of the wave function at a x value """
         if x < barrier_end:
-            return np.sin(k_b * x)
+#            return np.sin(k_b * x)/k_b
+            return sp.spherical_jn(l, k_b * x) * x / k_b**l
         else:  # x > barrier_end
-            return np.sin(k_e * x) / np.sin(k_e * barrier_end) * np.sin(k_b * barrier_end)
+            return np.sin(k_e * x) / np.sin(k_e * barrier_end) * np.sin(k_b * barrier_end)/k_b
