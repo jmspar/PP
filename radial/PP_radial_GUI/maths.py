@@ -6,7 +6,7 @@ import numpy as np
 import scipy.special as sp
 
 h2m = 1 # hbar**2/2m (to be calculated from physical constants)
-l = 2 # orbital angular momentum quantum number
+l = 0 # orbital angular momentum quantum number
 
 # Calculation range (nm)
 x_min = 0
