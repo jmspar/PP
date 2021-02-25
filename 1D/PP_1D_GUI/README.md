@@ -4,6 +4,10 @@ Graphical interface enabling to modify parameters of a wave function passing thr
 
 Created by [Loric Vandentempel](https://github.com/loricvdt/)
 
+## Warning
+
+Calculations for wave packet should be checked... they are probably incorrect!
+
 ## Dependencies
 
 The packages needed to run this code are **tkinter**, **time**, **threading** (these may already come with the Python installation), **matplotlib** and **numpy**
