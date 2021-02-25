@@ -102,9 +102,10 @@ def calculate_constants():
 		return
 
 	k_s = np.sqrt((E - V_0) / E) * k_0
-	k_b = np.sqrt((E - V_barrier) / E) * k_0
 	K_b = np.sqrt((V_barrier - E) / E) * k_0
+
 	k_e = np.sqrt(E/h2m + 0j)  # + Oj added to allow square root calculation for negative numbers
+	k_b = np.sqrt((E - V_barrier) / h2m + 0j)
 	x_s = barrier_start
 	x_e = barrier_end
 
