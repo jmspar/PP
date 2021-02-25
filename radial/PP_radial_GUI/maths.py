@@ -32,7 +32,6 @@ default_E = 1
 E = default_E
 E_min = -2
 E_max = 2
-E_limit = 0.0
 
 energy = [[x_min, x_max], []]  # Potential plot data
 

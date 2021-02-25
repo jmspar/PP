@@ -101,8 +101,8 @@ def update_a(value):
 
 def update_e(value):
 	""" Updates the energy """
-	if float(value) < maths.E_limit:
-		value = maths.E_limit
+	if float(value) < maths.E_min:
+		value = maths.E_min
 	maths.E = float(value)
 	view.E_slider.set(maths.E)
 	update_textbox(view.E_textbox, round(maths.E, 3))
