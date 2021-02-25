@@ -155,18 +155,15 @@ def gaussian(x, x_start, direction=1):
 
 
 def wave_function_value(x):
-	""" Returns value of the wave function at a x value """
-	if E - V_0 <= 0:
-		return 0
-	else:  # E - V_0 > 0
-		if x < barrier_start:
-			return gaussian(x, barrier_start + delta_start, 1) * np.exp(1j * k_s * x) + gaussian(x, barrier_start - delta_start, -1) * R * np.exp(-1j * k_s * x)
-		elif barrier_start <= x <= barrier_end:
-			if E - V_barrier > 0:
-				return gaussian(x, barrier_start + delta_start, 1) * (A * np.exp(1j * k_b * x) + B * np.exp(-1j * k_b * x))
-			elif E - V_barrier < 0:
-				return gaussian(x, barrier_start + delta_start, 1) * (A * np.sinh(K_b * x) + B * np.cosh(K_b * x))
-			else:  # E - V_barrier = 0
-				return gaussian(x, barrier_start + delta_start, 1) * (A * x + B)
-		else:  # x > barrier_end
-			return gaussian(x, barrier_start + delta_start, 1) * T * np.exp(1j * k_e * x)
+        """ Returns value of the wave function at a x value """
+        if x < barrier_start:
+            return gaussian(x, barrier_start + delta_start, 1) * np.exp(1j * k_s * x) + gaussian(x, barrier_start - delta_start, -1) * R * np.exp(-1j * k_s * x)
+        elif barrier_start <= x <= barrier_end:
+            if E - V_barrier > 0:
+                    return gaussian(x, barrier_start + delta_start, 1) * (A * np.exp(1j * k_b * x) + B * np.exp(-1j * k_b * x))
+            elif E - V_barrier < 0:
+                    return gaussian(x, barrier_start + delta_start, 1) * (A * np.sinh(K_b * x) + B * np.cosh(K_b * x))
+            else:  # E - V_barrier = 0
+                    return gaussian(x, barrier_start + delta_start, 1) * (A * x + B)
+        else:  # x > barrier_end
+            return gaussian(x, barrier_start + delta_start, 1) * T * np.exp(1j * k_e * x)
