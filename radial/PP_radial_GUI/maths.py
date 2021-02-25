@@ -4,8 +4,10 @@ if __name__ == "__main__":
 
 import numpy as np
 
+h2m = 1 # hbar**2/2m (to be calculated from physical constants)
+
 # Calculation range (nm)
-x_min = 0
+x_min = -8
 x_max = 10
 calculations = 1000
 
@@ -102,7 +104,7 @@ def calculate_constants():
 	k_s = np.sqrt((E - V_0) / E) * k_0
 	k_b = np.sqrt((E - V_barrier) / E) * k_0
 	K_b = np.sqrt((V_barrier - E) / E) * k_0
-	k_e = np.sqrt((E - V_1) / E + 0j) * k_0  # + Oj added to allow square root calculation for negative numbers
+	k_e = np.sqrt(E/h2m + 0j)  # + Oj added to allow square root calculation for negative numbers
 	x_s = barrier_start
 	x_e = barrier_end
 
