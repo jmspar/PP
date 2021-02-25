@@ -5,6 +5,7 @@ if __name__ == "__main__":
 import numpy as np
 import scipy.special as sp
 
+hbar = 1 # (to be calculated from physical constants)
 h2m = 1 # hbar**2/2m (to be calculated from physical constants)
 l = 0 # orbital angular momentum quantum number
 
@@ -50,12 +51,8 @@ psi = [[], []]
 
 # Wave
 wave_packet = False
-default_k_0 = 6
-k_0 = default_k_0
-k_0_min = 1
-k_0_max = 15
 alpha = 1
-omega = k_0**2 * alpha / 2
+omega = E/hbar
 default_a = 1
 a = default_a
 a_min = 0.1
@@ -108,14 +105,15 @@ def calculate_constants():
 
 
 def gaussian(x, x_start, direction=1):
-	if wave_packet:
-		k = k_0
-		v = alpha * k
-		w = a ** 2 + 1j * alpha * t / 2
-		x = x - x_start
-		return np.exp(-((direction * x - v*t)**2)/(4*w))
-	else:
-		return 1
+    return 1 # error in calculation by Vandentempel
+	#if wave_packet:
+		#k = k_0
+		#v = alpha * k
+		#w = a ** 2 + 1j * alpha * t / 2
+		#x = x - x_start
+		#return np.exp(-((direction * x - v*t)**2)/(4*w))
+	#else:
+		#return 1
 
 
 def wave_function_value(x):

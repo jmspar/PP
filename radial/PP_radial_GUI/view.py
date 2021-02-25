@@ -126,16 +126,14 @@ figure.tight_layout()
 
 # Creating sliders
 E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
-V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier potential (eV)", showvalue=0)
-barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier end (nm)", showvalue=0)
-wave_number_slider = tk.Scale(right_frame, from_=maths.k_0_min, to=maths.k_0_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Wave number (1/nm)", showvalue=0)
-gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian distribution factor", showvalue=0)
+V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier energy (eV)", showvalue=0)
+barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier radius (nm)", showvalue=0)
+gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian width (momentum space)", showvalue=0)
 
 # Creating text boxes
 E_textbox = tk.Entry(right_frame, width=10)
 V_barrier_textbox = tk.Entry(right_frame, width=10)
 barrier_end_textbox = tk.Entry(right_frame, width=10)
-wave_number_textbox = tk.Entry(right_frame, width=10)
 gaussian_textbox = tk.Entry(right_frame, width=10)
 
 # Creating radio buttons
@@ -172,8 +170,6 @@ V_barrier_slider.grid(row=2, column=0)
 V_barrier_textbox.grid(row=2, column=1, sticky="sew")
 barrier_end_slider.grid(row=5, column=0)
 barrier_end_textbox.grid(row=5, column=1, sticky="sew")
-wave_number_slider.grid(row=6, column=0)
-wave_number_textbox.grid(row=6, column=1, sticky="sew")
 gaussian_slider.grid(row=7, column=0)
 gaussian_textbox.grid(row=7, column=1, sticky="sew")
 reset_button.grid(row=8, column=1, sticky=tk.EW, pady=10)
@@ -200,7 +196,6 @@ def initialise():
 	E_slider.configure(command=controller.update_e)
 	V_barrier_slider.configure(command=controller.update_v_barrier)
 	barrier_end_slider.configure(command=controller.update_barrier_end)
-	wave_number_slider.configure(command=controller.update_wave_number)
 	gaussian_slider.configure(command=controller.update_a)
 	t_slider.configure(command=controller.update_t)
 
@@ -217,7 +212,6 @@ def initialise():
 	E_textbox.bind("<Return>", controller.update_e_from_tb)
 	V_barrier_textbox.bind("<Return>", controller.update_v_barrier_from_tb)
 	barrier_end_textbox.bind("<Return>", controller.update_barrier_end_from_tb)
-	wave_number_textbox.bind("<Return>", controller.update_wave_number_from_tb)
 	gaussian_textbox.bind("<Return>", controller.update_a_from_tb)
 	t_textbox.bind("<Return>", controller.update_t_from_tb)
 
@@ -225,14 +219,12 @@ def initialise():
 	controller.update_textbox(E_textbox, maths.E)
 	controller.update_textbox(V_barrier_textbox, maths.V_barrier)
 	controller.update_textbox(barrier_end_textbox, maths.barrier_end)
-	controller.update_textbox(wave_number_textbox, maths.k_0)
 	controller.update_textbox(gaussian_textbox, maths.a)
 	controller.update_textbox(t_textbox, maths.t)
 
 	E_slider.set(maths.E)
 	V_barrier_slider.set(maths.V_barrier)
 	barrier_end_slider.set(maths.barrier_end)
-	wave_number_slider.set(maths.k_0)
 	gaussian_slider.set(maths.a)
 	t_slider.set(maths.t)
 
