@@ -98,8 +98,6 @@ def calculate_wave_function():
 def calculate_constants():
 	""" Calculate needed constants for the wave function """
 	global k_s, k_b, K_b, k_e, A, B, R, T, E
-	if E - V_0 <= 0:
-		return
 
 	k_s = np.sqrt((E - V_0) / E) * k_0
 	K_b = np.sqrt((V_barrier - E) / E) * k_0
