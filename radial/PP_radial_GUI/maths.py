@@ -7,7 +7,7 @@ import numpy as np
 h2m = 1 # hbar**2/2m (to be calculated from physical constants)
 
 # Calculation range (nm)
-x_min = -8
+x_min = 0
 x_max = 10
 calculations = 1000
 
