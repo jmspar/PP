@@ -126,7 +126,6 @@ figure.tight_layout()
 
 # Creating sliders
 E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
-V_0_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Potential before barrier (eV)", showvalue=0)
 V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier potential (eV)", showvalue=0)
 V_1_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Potential after barrier (eV)", showvalue=0)
 barrier_start_slider = tk.Scale(right_frame, state="disabled", from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier start (nm) [disabled]", showvalue=0)
@@ -136,7 +135,6 @@ gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resol
 
 # Creating text boxes
 E_textbox = tk.Entry(right_frame, width=10)
-V_0_textbox = tk.Entry(right_frame, width=10)
 V_barrier_textbox = tk.Entry(right_frame, width=10)
 V_1_textbox = tk.Entry(right_frame, width=10)
 barrier_start_textbox = tk.Entry(right_frame, width=10, state="disabled")
@@ -146,8 +144,8 @@ gaussian_textbox = tk.Entry(right_frame, width=10)
 
 # Creating radio buttons
 wave_packet_bool = tk.BooleanVar(value=maths.wave_packet)
-plane_wave = tk.Radiobutton(right_frame, text="Plane wave", variable=wave_packet_bool, val=False)
-wave_packet = tk.Radiobutton(right_frame, text="Wave packet", variable=wave_packet_bool, val=True)
+plane_wave = tk.Radiobutton(right_frame, text="Stationary state", variable=wave_packet_bool, val=False)
+wave_packet = tk.Radiobutton(right_frame, text="Wave packet [disabled]", variable=wave_packet_bool, val=True)
 
 # Creating reset button
 reset_button = tk.Button(right_frame, text="Reset")
@@ -174,8 +172,6 @@ t_textbox.grid(row=0, column=4)
 
 E_slider.grid(row=0, column=0)
 E_textbox.grid(row=0, column=1, sticky="sew")
-V_0_slider.grid(row=1, column=0)
-V_0_textbox.grid(row=1, column=1, sticky="sew")
 V_barrier_slider.grid(row=2, column=0)
 V_barrier_textbox.grid(row=2, column=1, sticky="sew")
 V_1_slider.grid(row=3, column=0)
@@ -210,7 +206,6 @@ def initialise():
 
 	# Binding command to sliders
 	E_slider.configure(command=controller.update_e)
-	V_0_slider.configure(command=controller.update_v_0)
 	V_barrier_slider.configure(command=controller.update_v_barrier)
 	V_1_slider.configure(command=controller.update_v_1)
 	barrier_start_slider.configure(command=controller.update_barrier_start)
@@ -230,7 +225,6 @@ def initialise():
 
 	# Binding textbox actions
 	E_textbox.bind("<Return>", controller.update_e_from_tb)
-	V_0_textbox.bind("<Return>", controller.update_v_0_from_tb)
 	V_barrier_textbox.bind("<Return>", controller.update_v_barrier_from_tb)
 	V_1_textbox.bind("<Return>", controller.update_v_1_from_tb)
 	barrier_start_textbox.bind("<Return>", controller.update_barrier_start_from_tb)
@@ -241,7 +235,6 @@ def initialise():
 
 	# Setting default values
 	controller.update_textbox(E_textbox, maths.E)
-	controller.update_textbox(V_0_textbox, maths.V_0)
 	controller.update_textbox(V_barrier_textbox, maths.V_barrier)
 	controller.update_textbox(V_1_textbox, maths.V_1)
 	controller.update_textbox(barrier_start_textbox, maths.barrier_start)
@@ -251,7 +244,6 @@ def initialise():
 	controller.update_textbox(t_textbox, maths.t)
 
 	E_slider.set(maths.E)
-	V_0_slider.set(maths.V_0)
 	V_barrier_slider.set(maths.V_barrier)
 	V_1_slider.set(maths.V_1)
 	barrier_start_slider.set(maths.barrier_start)
