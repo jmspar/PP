@@ -99,53 +99,15 @@ def calculate_wave_function():
 
 def calculate_constants():
 	""" Calculate needed constants for the wave function """
-	global k_s, k_b, K_b, k_e, A, B, R, T, E, td
-
-	k_s = np.sqrt((E - V_0) / E) * k_0
-	K_b = np.sqrt((V_barrier - E) / E) * k_0
+	global k_e, k_b, td
 
 	k_e = np.sqrt(E/h2m + 0j)  # + Oj added to allow square root calculation for negative numbers
 	k_b = np.sqrt((E - V_barrier) / h2m + 0j)
-	x_s = barrier_start
+
 	x_e = barrier_end
 	
 	td = (k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_jn(l+1,k_e*x_e)-k_b*sp.spherical_jn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)) \
             /(k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_yn(l+1,k_e*x_e)-k_b*sp.spherical_yn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)) # phase-shift tangent
-
-	# Preventing division by 0 (good enough for plotting)
-	if k_e == 0:
-		k_e = 0.000001
-	if k_s == k_b:
-		k_s = k_b + 0.000001
-
-	if E - V_barrier > 0:  # Case 1
-		A = 1 / \
-			((k_b / k_e - 1) / (k_b / k_e + 1) * np.exp(2 * 1j * k_b * x_e) + (1 + k_b / k_s) / (1 - k_b / k_s) * np.exp(2 * 1j * k_b * x_s)) \
-			* (2 * np.exp(1j * k_s * k_b * x_s)) / (1 - k_b / k_s)
-		B = (k_b / k_e - 1) / (k_b / k_e + 1) * A * np.exp(2 * 1j * k_b * x_e)
-		R = np.exp(1j * k_s * x_s) * (A * np.exp(1j * k_b * x_s) + B * np.exp(-1j * k_b * x_s) - np.exp(1j * k_s * x_s))
-		T = np.exp(-1j * k_e * x_e) * (A * np.exp(1j * k_b * x_e) + B * np.exp(-1j * k_b * x_e))
-	elif E - V_barrier < 0:  # Case 2
-		A = 1 / \
-			(
-					(1j * k_e * np.sinh(K_b * x_e) - K_b * np.cosh(K_b * x_e)) / (
-						K_b * np.sinh(K_b * x_e) - 1j * k_e * np.cosh(K_b * x_e))
-					+ (1j * k_s * np.sinh(K_b * x_s) + K_b * np.cosh(K_b * x_s)) / (
-								1j * k_s * np.cosh(K_b * x_s) + K_b * np.sinh(K_b * x_s))
-			) \
-			* 2 * 1j * k_s * np.exp(1j * k_s * x_s) / \
-			(1j * k_s * np.cosh(K_b * x_s) + K_b * np.sinh(K_b * x_s))
-		B = A * \
-			(1j * k_e * np.sinh(K_b * x_e) - K_b * np.cosh(K_b * x_e)) / \
-			(K_b * np.sinh(K_b * x_e) - 1j * k_e * np.cosh(K_b * x_e))
-		R = np.exp(1j * k_s * x_s) * (A * np.sinh(K_b * x_s) + B * np.cosh(K_b * x_s) - np.exp(1j * k_s * x_s))
-		T = np.exp(-1j * k_e * x_e) * (A * np.sinh(K_b * x_e) + B * np.cosh(K_b * x_e))
-	else:  # E - V_barrier == 0  # Case 3
-		A = 2 * np.exp(1j * k_s * x_s) / \
-			(x_s - x_e + 1 / (1j * k_s) + 1 / (1j * k_e))
-		B = A * (1 / (1j * k_e) - x_e)
-		R = np.exp(1j * k_s * x_s) * (np.exp(1j * k_s * x_s) - A / (1j * k_s))
-		T = A / (1j * k_e * np.exp(1j * k_e * x_e))
 
 
 def gaussian(x, x_start, direction=1):
