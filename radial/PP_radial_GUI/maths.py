@@ -7,7 +7,7 @@ import scipy.special as sp
 
 hbar = 1 # (to be calculated from physical constants)
 h2m = 1 # hbar**2/2m (to be calculated from physical constants)
-l = 0 # orbital angular momentum quantum number
+l = 2 # orbital angular momentum quantum number
 
 # Calculation range (nm)
 x_min = 0
@@ -15,7 +15,7 @@ x_max = 10
 calculations = 1000
 
 # Potential
-default_V_barrier = 1
+default_V_barrier = -1.5
 V_barrier = default_V_barrier
 default_V_1 = 0
 V_1 = default_V_1
@@ -70,6 +70,20 @@ def calculate_potential():
 	global potential
 	potential[0] = [x_min, barrier_end, barrier_end, x_max]
 	potential[1] = [V_barrier, V_barrier, V_1, V_1]
+
+
+def calculate_effective_potential():
+	""" Calculates the effective potential """
+	global effective_potential
+
+	effective_potential[0] = np.linspace(x_min, x_max, calculations)
+	effective_potential[1] = []
+
+	for x in effective_potential[0]:
+            if x < barrier_end:
+                effective_potential[1].append(V_barrier + l*(l+1)/x**2*h2m)
+            else:
+                effective_potential[1].append(V_1 + l*(l+1)/x**2*h2m)                
 
 
 def calculate_energy():
