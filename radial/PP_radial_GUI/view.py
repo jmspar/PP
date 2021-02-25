@@ -44,6 +44,7 @@ ax.set_ylim(maths.E_min, maths.E_max)
 ax.set_ylabel('Energy (eV)')
 ax.set_xlabel('Radius (nm)')
 ax.set_facecolor((1, 1, 1, 0))
+ax.axis()
 
 ax2 = ax.twinx()
 ax2.set_ylim(maths.psi_min, maths.psi_max)
@@ -54,7 +55,7 @@ maths.calculate_energy()
 energy_plt, = ax.plot(maths.energy[0], maths.energy[1], 'g--', linewidth=1, label="Energy")
 
 maths.calculate_potential()
-potential_plt, = ax.plot(maths.potential[0], maths.potential[1], 'b--', linewidth=1, label="Potential")
+potential_plt, = ax.plot(maths.potential[0], maths.potential[1], 'b--', linewidth=1, label="Central potential")
 
 maths.calculate_effective_potential()
 effective_potential_plt, = ax.plot(maths.effective_potential[0], maths.effective_potential[1], 'b', linewidth=1, label="Effective potential")
@@ -161,10 +162,10 @@ imaginary_checkbox = tk.Checkbutton(right_frame, text="Imaginary", variable=show
 color_mesh_checkbox = tk.Checkbutton(right_frame, text="Phase colours", variable=show_color_mesh, command=plot_color_mesh)
 
 # Time controls
-t_label = tk.Label(time_control_frame, text="Time")
+t_label = tk.Label(time_control_frame, text="Time (ns)")
 t_play_pause = tk.Button(time_control_frame, text=play_icon)
 t_stop = tk.Button(time_control_frame, text="⏹")
-t_slider = tk.Scale(time_control_frame, from_=maths.t_min, to=maths.t_max, resolution=0.01, orient=tk.HORIZONTAL, showvalue=0)
+t_slider = tk.Scale(time_control_frame, from_=maths.t_min, to=maths.t_max, resolution=0.001, orient=tk.HORIZONTAL, showvalue=0)
 t_textbox = tk.Entry(time_control_frame, width=10)
 
 # Adding all to view

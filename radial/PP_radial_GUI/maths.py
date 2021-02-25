@@ -4,69 +4,59 @@ if __name__ == "__main__":
 
 import numpy as np
 import scipy.special as sp
+import scipy.constants as cst
 
 # units
-hbar = 1 # (to be calculated from physical constants)
-h2m = 1 # hbar**2/2m (to be calculated from physical constants)
+h2m = cst.hbar**2/2/cst.m_e/cst.e*1e18 # hbar**2/2 m_e (eV nm**2)
 
 # Calculation range (nm)
 x_min = 0.000001
 x_max = 10
 calculations = 1000
 
-# Potential
+# Potential (eV)
 default_l = 1 # orbital angular momentum quantum number
 l = default_l
-default_V_barrier = -1.5
+default_V_barrier = -0.15
 V_barrier = default_V_barrier
 default_V_1 = 0
 V_1 = default_V_1
 default_barrier_start = 0  # (nm)
 barrier_start = default_barrier_start
-default_barrier_end = 2
+default_barrier_end = 2.2
 barrier_end = default_barrier_end
 
 potential = [[], []]  # Potential plot data
 effective_potential = [[], []]  # Effective potential plot data
 
-# Energy
-default_E = 1
+# Energy (eV)
+default_E = 0.1
 E = default_E
-E_min = -2
-E_max = 2
+E_min = -0.2
+E_max = 0.2
 
 energy = [[x_min, x_max], []]  # Potential plot data
 
-# Constants
-k_s = 0
-k_b = 0
-K_b = 0
-k_e = 0
-A = 0
-B = 0
-R = 0
-T = 0
-
-# Wave function
-psi_min = -4
-psi_max = 4
+# Wave function (nm^{-1/2})
+psi_min = -1
+psi_max = 1
 psi = [[], []]
+omega = E/cst.e/cst.hbar/1e9    # (ns^{-1})
 
 # Wave
 wave_packet = False
 alpha = 1
-omega = E/hbar
 default_a = 1
 a = default_a
 a_min = 0.1
 a_max = 5
 delta_start = -4
 
-# Time
+# Time (ns)
 default_t = 0
 t = default_t
 t_min = 0
-t_max = 5
+t_max = 1
 
 def calculate_potential():
 	""" Calculates the value of the potential """
