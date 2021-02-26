@@ -8,7 +8,7 @@ The packages needed to run this code are **tkinter**, **time**, **threading** (t
 
 ## Download
 
-To download the code, either use GitHub to download (and clone!) the whole PP project, or simply download the zipped file containing the source code [PP_radial_GUI.zip](PP_radial_GUI.zip) and extract files from it.
+To download the code, either use GitHub to download (and clone... and be involved in... ) the whole PP project, or simply download the zipped file containing the source code [PP_radial_GUI.zip](PP_radial_GUI.zip) and extract files from it.
 
 ## Usage
 
