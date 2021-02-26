@@ -136,7 +136,7 @@ p_wave = tk.Radiobutton(right_frame, text="p (l=1)", variable=l_var, val=1)
 d_wave = tk.Radiobutton(right_frame, text="d (l=2)", variable=l_var, val=2)
 
 # Creating sliders
-E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
+E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.0000001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
 V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier energy (eV)", showvalue=0)
 barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier radius (nm)", showvalue=0)
 gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian width (k space)", showvalue=0)

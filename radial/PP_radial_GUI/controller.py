@@ -50,17 +50,6 @@ def update_barrier_end(value):
 	update_potential()
 
 
-def update_wave_number(value):
-	""" Updates the wave number """
-	maths.k_0 = float(value)
-	view.wave_number_slider.set(maths.k_0)
-	update_textbox(view.wave_number_textbox, round(maths.k_0, 3))
-	update_potential()
-	update_wave_function()
-	view.plt.draw()
-	view.canvas.draw()
-
-
 def update_a(value):
 	""" Updates the gaussian distribution factor """
 	maths.a = float(value)
@@ -78,7 +67,7 @@ def update_e(value):
 		value = maths.E_min
 	maths.E = float(value)
 	view.E_slider.set(maths.E)
-	update_textbox(view.E_textbox, round(maths.E, 4))
+	update_textbox(view.E_textbox, round(maths.E, 7))
 	update_energy()
 
 
