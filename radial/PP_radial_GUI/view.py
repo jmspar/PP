@@ -17,7 +17,7 @@ pause_icon = "⏸"
 
 # Create window
 window = tk.Tk()
-window.title("PP_1D_GUI")
+window.title("PP_radial_GUI (electron in spherical quantum dot)")
 window.iconbitmap("")
 window.resizable(False, False)
 window.protocol("WM_DELETE_WINDOW", exit)
@@ -42,8 +42,9 @@ ax = figure.add_subplot(111)
 ax.set_xlim(maths.x_min, maths.x_max)
 ax.set_ylim(maths.E_min, maths.E_max)
 ax.set_ylabel('Energy (eV)')
-ax.set_xlabel('Position (nm)')
+ax.set_xlabel('Radius (nm)')
 ax.set_facecolor((1, 1, 1, 0))
+ax.axis()
 
 ax2 = ax.twinx()
 ax2.set_ylim(maths.psi_min, maths.psi_max)
@@ -54,7 +55,10 @@ maths.calculate_energy()
 energy_plt, = ax.plot(maths.energy[0], maths.energy[1], 'g--', linewidth=1, label="Energy")
 
 maths.calculate_potential()
-potential_plt, = ax.plot(maths.potential[0], maths.potential[1], 'b', linewidth=1, label="Potential")
+potential_plt, = ax.plot(maths.potential[0], maths.potential[1], 'b--', linewidth=1, label="Central potential")
+
+maths.calculate_effective_potential()
+effective_potential_plt, = ax.plot(maths.effective_potential[0], maths.effective_potential[1], 'b', linewidth=1, label="Effective potential")
 
 maths.calculate_wave_function()
 show_abs = tk.BooleanVar(value=False)
@@ -124,30 +128,29 @@ plot_color_mesh(maths.psi)
 ax.legend()
 figure.tight_layout()
 
+# Partial wave radio buttons
+l_label = tk.Label(right_frame, text="Partial wave")
+l_var = tk.IntVar(value=maths.l)
+s_wave = tk.Radiobutton(right_frame, text="s (l=0)", variable=l_var, val=0)
+p_wave = tk.Radiobutton(right_frame, text="p (l=1)", variable=l_var, val=1)
+d_wave = tk.Radiobutton(right_frame, text="d (l=2)", variable=l_var, val=2)
+
 # Creating sliders
-E_slider = tk.Scale(right_frame, from_=maths.E_limit, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
-V_0_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Potential before barrier (eV)", showvalue=0)
-V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier potential (eV)", showvalue=0)
-V_1_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Potential after barrier (eV)", showvalue=0)
-barrier_start_slider = tk.Scale(right_frame, state="disabled", from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier start (nm) [disabled]", showvalue=0)
-barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier end (nm)", showvalue=0)
-wave_number_slider = tk.Scale(right_frame, from_=maths.k_0_min, to=maths.k_0_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Wave number (1/nm)", showvalue=0)
-gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian distribution factor", showvalue=0)
+E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.0001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
+V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier energy (eV)", showvalue=0)
+barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier radius (nm)", showvalue=0)
+gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian width (k space)", showvalue=0)
 
 # Creating text boxes
 E_textbox = tk.Entry(right_frame, width=10)
-V_0_textbox = tk.Entry(right_frame, width=10)
 V_barrier_textbox = tk.Entry(right_frame, width=10)
-V_1_textbox = tk.Entry(right_frame, width=10)
-barrier_start_textbox = tk.Entry(right_frame, width=10, state="disabled")
 barrier_end_textbox = tk.Entry(right_frame, width=10)
-wave_number_textbox = tk.Entry(right_frame, width=10)
 gaussian_textbox = tk.Entry(right_frame, width=10)
 
-# Creating radio buttons
+# Creating stationary state/wave packet radio buttons
 wave_packet_bool = tk.BooleanVar(value=maths.wave_packet)
-plane_wave = tk.Radiobutton(right_frame, text="Plane wave", variable=wave_packet_bool, val=False)
-wave_packet = tk.Radiobutton(right_frame, text="Wave packet", variable=wave_packet_bool, val=True)
+plane_wave = tk.Radiobutton(right_frame, text="Stationary state", variable=wave_packet_bool, val=False)
+wave_packet = tk.Radiobutton(right_frame, text="Wave packet [disabled]", variable=wave_packet_bool, val=True)
 
 # Creating reset button
 reset_button = tk.Button(right_frame, text="Reset")
@@ -159,10 +162,10 @@ imaginary_checkbox = tk.Checkbutton(right_frame, text="Imaginary", variable=show
 color_mesh_checkbox = tk.Checkbutton(right_frame, text="Phase colours", variable=show_color_mesh, command=plot_color_mesh)
 
 # Time controls
-t_label = tk.Label(time_control_frame, text="Time")
+t_label = tk.Label(time_control_frame, text="Time (ns)")
 t_play_pause = tk.Button(time_control_frame, text=play_icon)
 t_stop = tk.Button(time_control_frame, text="⏹")
-t_slider = tk.Scale(time_control_frame, from_=maths.t_min, to=maths.t_max, resolution=0.01, orient=tk.HORIZONTAL, showvalue=0)
+t_slider = tk.Scale(time_control_frame, from_=maths.t_min, to=maths.t_max, resolution=0.001, orient=tk.HORIZONTAL, showvalue=0)
 t_textbox = tk.Entry(time_control_frame, width=10)
 
 # Adding all to view
@@ -172,22 +175,18 @@ t_stop.grid(row=0, column=2)
 t_slider.grid(row=0, column=3, sticky=tk.EW)
 t_textbox.grid(row=0, column=4)
 
-E_slider.grid(row=0, column=0)
-E_textbox.grid(row=0, column=1, sticky="sew")
-V_0_slider.grid(row=1, column=0)
-V_0_textbox.grid(row=1, column=1, sticky="sew")
-V_barrier_slider.grid(row=2, column=0)
-V_barrier_textbox.grid(row=2, column=1, sticky="sew")
-V_1_slider.grid(row=3, column=0)
-V_1_textbox.grid(row=3, column=1, sticky="sew")
-barrier_start_slider.grid(row=4, column=0)
-barrier_start_textbox.grid(row=4, column=1, sticky="sew")
-barrier_end_slider.grid(row=5, column=0)
-barrier_end_textbox.grid(row=5, column=1, sticky="sew")
-wave_number_slider.grid(row=6, column=0)
-wave_number_textbox.grid(row=6, column=1, sticky="sew")
-gaussian_slider.grid(row=7, column=0)
-gaussian_textbox.grid(row=7, column=1, sticky="sew")
+l_label.grid(row=0, column=0)
+s_wave.grid(row=0, column=1, sticky="w")
+p_wave.grid(row=1, column=1, sticky="w")
+d_wave.grid(row=2, column=1, sticky="w")
+V_barrier_slider.grid(row=3, column=0)
+V_barrier_textbox.grid(row=3, column=1, sticky="sew")
+barrier_end_slider.grid(row=4, column=0)
+barrier_end_textbox.grid(row=4, column=1, sticky="sew")
+E_slider.grid(row=5, column=0)
+E_textbox.grid(row=5, column=1, sticky="sew")
+gaussian_slider.grid(row=6, column=0)
+gaussian_textbox.grid(row=6, column=1, sticky="sew")
 reset_button.grid(row=8, column=1, sticky=tk.EW, pady=10)
 plane_wave.grid(row=9, column=0, sticky=tk.W)
 wave_packet.grid(row=10, column=0, sticky=tk.W)
@@ -208,14 +207,15 @@ def initialise():
 	figure.canvas.mpl_connect('button_release_event', controller.button_release_callback)
 	figure.canvas.mpl_connect('motion_notify_event', controller.motion_notify_callback)
 
+	# Binding partial-wave radio button actions
+	s_wave.configure(command=controller.change_l)
+	p_wave.configure(command=controller.change_l)
+	d_wave.configure(command=controller.change_l)
+
 	# Binding command to sliders
 	E_slider.configure(command=controller.update_e)
-	V_0_slider.configure(command=controller.update_v_0)
 	V_barrier_slider.configure(command=controller.update_v_barrier)
-	V_1_slider.configure(command=controller.update_v_1)
-	barrier_start_slider.configure(command=controller.update_barrier_start)
 	barrier_end_slider.configure(command=controller.update_barrier_end)
-	wave_number_slider.configure(command=controller.update_wave_number)
 	gaussian_slider.configure(command=controller.update_a)
 	t_slider.configure(command=controller.update_t)
 
@@ -224,39 +224,27 @@ def initialise():
 	t_play_pause.configure(command=controller.play_pause)
 	t_stop.configure(command=controller.stop)
 
-	# Binding radio button actions
+	# Binding state radio button actions
 	plane_wave.configure(command=controller.change_wave_type)
 	wave_packet.configure(command=controller.change_wave_type)
 
 	# Binding textbox actions
 	E_textbox.bind("<Return>", controller.update_e_from_tb)
-	V_0_textbox.bind("<Return>", controller.update_v_0_from_tb)
 	V_barrier_textbox.bind("<Return>", controller.update_v_barrier_from_tb)
-	V_1_textbox.bind("<Return>", controller.update_v_1_from_tb)
-	barrier_start_textbox.bind("<Return>", controller.update_barrier_start_from_tb)
 	barrier_end_textbox.bind("<Return>", controller.update_barrier_end_from_tb)
-	wave_number_textbox.bind("<Return>", controller.update_wave_number_from_tb)
 	gaussian_textbox.bind("<Return>", controller.update_a_from_tb)
 	t_textbox.bind("<Return>", controller.update_t_from_tb)
 
 	# Setting default values
 	controller.update_textbox(E_textbox, maths.E)
-	controller.update_textbox(V_0_textbox, maths.V_0)
 	controller.update_textbox(V_barrier_textbox, maths.V_barrier)
-	controller.update_textbox(V_1_textbox, maths.V_1)
-	controller.update_textbox(barrier_start_textbox, maths.barrier_start)
 	controller.update_textbox(barrier_end_textbox, maths.barrier_end)
-	controller.update_textbox(wave_number_textbox, maths.k_0)
 	controller.update_textbox(gaussian_textbox, maths.a)
 	controller.update_textbox(t_textbox, maths.t)
 
 	E_slider.set(maths.E)
-	V_0_slider.set(maths.V_0)
 	V_barrier_slider.set(maths.V_barrier)
-	V_1_slider.set(maths.V_1)
-	barrier_start_slider.set(maths.barrier_start)
 	barrier_end_slider.set(maths.barrier_end)
-	wave_number_slider.set(maths.k_0)
 	gaussian_slider.set(maths.a)
 	t_slider.set(maths.t)
 
