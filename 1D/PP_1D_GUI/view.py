@@ -2,6 +2,8 @@ if __name__ == "__main__":
 	print("main.py should be started instead")
 	exit()
 
+import matplotlib
+matplotlib.use('TkAgg')
 
 import tkinter as tk
 import matplotlib.pyplot as plt
