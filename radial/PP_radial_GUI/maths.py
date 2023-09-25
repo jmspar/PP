@@ -6,22 +6,21 @@ import numpy as np
 import scipy.special as sp
 import scipy.constants as cst
 
-# units
-h2m = cst.hbar**2/2/cst.m_e/cst.e*1e18 # hbar**2/2 m_e (eV nm**2)
+from units import h2m
 
-# Calculation range (nm)
+# Calculation range
 x_min = 0.000001
 x_max = 10
 calculations = 1000
 
-# Potential (eV)
+# Potential
 default_l = 1 # orbital angular momentum quantum number
 l = default_l
 default_V_barrier = -0.15
 V_barrier = default_V_barrier
 default_V_1 = 0
 V_1 = default_V_1
-default_barrier_start = 0  # (nm)
+default_barrier_start = 0
 barrier_start = default_barrier_start
 default_barrier_end = 2.2
 barrier_end = default_barrier_end
@@ -29,7 +28,7 @@ barrier_end = default_barrier_end
 potential = [[], []]  # Potential plot data
 effective_potential = [[], []]  # Effective potential plot data
 
-# Energy (eV)
+# Energy
 default_E = 0.1
 E = default_E
 E_min = -0.2
@@ -37,7 +36,7 @@ E_max = 0.2
 
 energy = [[x_min, x_max], []]  # Potential plot data
 
-# Wave function (nm^{-1/2})
+# Wave function
 psi_min = -1
 psi_max = 1
 psi = [[], []]
