@@ -12,6 +12,7 @@ import numpy as np
 
 import maths
 import controller
+from units import lu, Eu
 
 play_icon = "⏵"
 pause_icon = "⏸"
@@ -19,7 +20,7 @@ pause_icon = "⏸"
 
 # Create window
 window = tk.Tk()
-window.title("PP_radial_GUI (electron in spherical quantum dot)")
+window.title("PP_radial_GUI (electron in spherical quantum dot or nucleus-nucleus central interaction)")
 window.iconbitmap("")
 window.resizable(False, False)
 window.protocol("WM_DELETE_WINDOW", exit)
@@ -43,14 +44,14 @@ canvas.get_tk_widget().pack(side=tk.TOP)
 ax = figure.add_subplot(111)
 ax.set_xlim(maths.x_min, maths.x_max)
 ax.set_ylim(maths.E_min, maths.E_max)
-ax.set_ylabel('Energy (eV)')
-ax.set_xlabel('Radius (nm)')
+ax.set_ylabel('Energy ('+Eu+')')
+ax.set_xlabel('Radius ('+lu+')')
 ax.set_facecolor((1, 1, 1, 0))
 ax.axis()
 
 ax2 = ax.twinx()
 ax2.set_ylim(maths.psi_min, maths.psi_max)
-ax2.set_ylabel('Wave function (nm$^{-1/2}$)')
+ax2.set_ylabel('Wave function ('+lu+'$^{-1/2}$)')
 ax2.set_zorder(-1)
 
 maths.calculate_energy()
@@ -136,6 +137,9 @@ l_var = tk.IntVar(value=maths.l)
 s_wave = tk.Radiobutton(right_frame, text="s (l=0)", variable=l_var, val=0)
 p_wave = tk.Radiobutton(right_frame, text="p (l=1)", variable=l_var, val=1)
 d_wave = tk.Radiobutton(right_frame, text="d (l=2)", variable=l_var, val=2)
+f_wave = tk.Radiobutton(right_frame, text="f (l=3)", variable=l_var, val=3)
+g_wave = tk.Radiobutton(right_frame, text="g (l=4)", variable=l_var, val=4)
+h_wave = tk.Radiobutton(right_frame, text="h (l=5)", variable=l_var, val=5)
 
 # Creating sliders
 E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.0001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
@@ -178,24 +182,27 @@ t_slider.grid(row=0, column=3, sticky=tk.EW)
 t_textbox.grid(row=0, column=4)
 
 l_label.grid(row=0, column=0)
-s_wave.grid(row=0, column=1, sticky="w")
-p_wave.grid(row=1, column=1, sticky="w")
-d_wave.grid(row=2, column=1, sticky="w")
-V_barrier_slider.grid(row=3, column=0)
-V_barrier_textbox.grid(row=3, column=1, sticky="sew")
-barrier_end_slider.grid(row=4, column=0)
-barrier_end_textbox.grid(row=4, column=1, sticky="sew")
-E_slider.grid(row=5, column=0)
-E_textbox.grid(row=5, column=1, sticky="sew")
-gaussian_slider.grid(row=6, column=0)
-gaussian_textbox.grid(row=6, column=1, sticky="sew")
-reset_button.grid(row=8, column=1, sticky=tk.EW, pady=10)
-plane_wave.grid(row=9, column=0, sticky=tk.W)
-wave_packet.grid(row=10, column=0, sticky=tk.W)
-real_checkbox.grid(row=11, column=0, sticky=tk.W)
-imaginary_checkbox.grid(row=12, column=0, sticky=tk.W)
-abs_checkbox.grid(row=11, column=1, sticky=tk.W)
-color_mesh_checkbox.grid(row=12, column=1, sticky=tk.W)
+s_wave.grid(row=1, column=0, sticky="w")
+p_wave.grid(row=2, column=0, sticky="w")
+d_wave.grid(row=3, column=0, sticky="w")
+f_wave.grid(row=1, column=1, sticky="w")
+g_wave.grid(row=2, column=1, sticky="w")
+h_wave.grid(row=3, column=1, sticky="w")
+V_barrier_slider.grid(row=4, column=0)
+V_barrier_textbox.grid(row=4, column=1, sticky="sew")
+barrier_end_slider.grid(row=5, column=0)
+barrier_end_textbox.grid(row=5, column=1, sticky="sew")
+E_slider.grid(row=6, column=0)
+E_textbox.grid(row=6, column=1, sticky="sew")
+gaussian_slider.grid(row=7, column=0)
+gaussian_textbox.grid(row=7, column=1, sticky="sew")
+reset_button.grid(row=9, column=1, sticky=tk.EW, pady=10)
+plane_wave.grid(row=10, column=0, sticky=tk.W)
+wave_packet.grid(row=11, column=0, sticky=tk.W)
+real_checkbox.grid(row=12, column=0, sticky=tk.W)
+imaginary_checkbox.grid(row=13, column=0, sticky=tk.W)
+abs_checkbox.grid(row=12, column=1, sticky=tk.W)
+color_mesh_checkbox.grid(row=13, column=1, sticky=tk.W)
 
 
 def on_closing():
@@ -213,6 +220,9 @@ def initialise():
 	s_wave.configure(command=controller.change_l)
 	p_wave.configure(command=controller.change_l)
 	d_wave.configure(command=controller.change_l)
+	f_wave.configure(command=controller.change_l)
+	g_wave.configure(command=controller.change_l)
+	h_wave.configure(command=controller.change_l)
 
 	# Binding command to sliders
 	E_slider.configure(command=controller.update_e)

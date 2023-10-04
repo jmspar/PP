@@ -8,6 +8,7 @@ print('Select unit system')
 print('1. Atomic physics')
 print('2. Nuclear physics')
 n_us = int(input('   please enter unit system number: '))
+#n_us = 2
 
 if n_us == 1:
 	print('Atomic physics')
@@ -34,8 +35,10 @@ else :
 print('Length unit = ', lu)
 print('Energy unit = ', Eu)
 
-m1 = float(input('   enter mass of particle 1: '))
-m2 = float(input('   enter mass of particle 2: '))
+#m1 = float(input('   enter mass of particle 1: '))
+m1 = float(16)
+#m2 = float(input('   enter mass of particle 2: '))
+m2 = float(4)
 mu = m1*m2/(m1+m2)
 
 h2m = h2m / mu
