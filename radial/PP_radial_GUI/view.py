@@ -12,7 +12,7 @@ import numpy as np
 
 import maths
 import controller
-from units import lu, Eu
+from units import lu, Eu, title
 
 play_icon = "⏵"
 pause_icon = "⏸"
@@ -20,7 +20,7 @@ pause_icon = "⏸"
 
 # Create window
 window = tk.Tk()
-window.title("PP_radial_GUI (electron in spherical quantum dot or nucleus-nucleus central interaction)")
+window.title("PP_radial_GUI ("+title+")")
 window.iconbitmap("")
 window.resizable(False, False)
 window.protocol("WM_DELETE_WINDOW", exit)
@@ -142,9 +142,9 @@ g_wave = tk.Radiobutton(right_frame, text="g (l=4)", variable=l_var, val=4)
 h_wave = tk.Radiobutton(right_frame, text="h (l=5)", variable=l_var, val=5)
 
 # Creating sliders
-E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.0001, orient=tk.HORIZONTAL, length=200, label="Energy (eV)", showvalue=0)
-V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier energy (eV)", showvalue=0)
-barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier radius (nm)", showvalue=0)
+E_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.0001, orient=tk.HORIZONTAL, length=200, label="Energy ("+Eu+")", showvalue=0)
+V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier energy ("+Eu+")", showvalue=0)
+barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier radius ("+lu+")", showvalue=0)
 gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian width (k space)", showvalue=0)
 
 # Creating text boxes

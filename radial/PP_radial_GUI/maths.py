@@ -6,7 +6,7 @@ import numpy as np
 import scipy.special as sp
 import scipy.constants as cst
 
-from units import h2m
+from units import n_us, h2m
 
 # Calculation range
 x_min = 0.000001
@@ -14,25 +14,43 @@ x_max = 10
 calculations = 1000
 
 # Potential
-default_l = 1 # orbital angular momentum quantum number
-l = default_l
-default_V_barrier = -0.15
-V_barrier = default_V_barrier
-default_V_1 = 0
-V_1 = default_V_1
-default_barrier_start = 0
-barrier_start = default_barrier_start
-default_barrier_end = 2.2
-barrier_end = default_barrier_end
+if n_us == 1:
+	default_l = 1 # orbital angular momentum quantum number
+	l = default_l
+	default_V_barrier = -0.15
+	V_barrier = default_V_barrier
+	default_V_1 = 0
+	V_1 = default_V_1
+	default_barrier_start = 0
+	barrier_start = default_barrier_start
+	default_barrier_end = 2.2
+	barrier_end = default_barrier_end
+elif n_us == 2:
+	default_l = 0 # orbital angular momentum quantum number
+	l = default_l
+	default_V_barrier = -140
+	V_barrier = default_V_barrier
+	default_V_1 = 0
+	V_1 = default_V_1
+	default_barrier_start = 0
+	barrier_start = default_barrier_start
+	default_barrier_end = 3
+	barrier_end = default_barrier_end
 
 potential = [[], []]  # Potential plot data
 effective_potential = [[], []]  # Effective potential plot data
 
 # Energy
-default_E = 0.1
-E = default_E
-E_min = -0.2
-E_max = 0.2
+if n_us == 1:
+	default_E = 0.1
+	E = default_E
+	E_min = -0.2
+	E_max = 0.2
+elif n_us == 2:
+	default_E = -120
+	E = default_E
+	E_min = -150
+	E_max = 150
 
 energy = [[x_min, x_max], []]  # Potential plot data
 

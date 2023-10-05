@@ -15,7 +15,10 @@ if n_us == 1:
 
 	lu = 'nm'
 	Eu = 'eV'
+	title = "electron in spherical quantum dot"
 	print('Mass unit = electron mass')
+	m1 = float(1)
+	m2 = float(100000)
 
 	h2m = cst.hbar**2 / 2 / cst.m_e / cst.e * 1e18 # hbar**2/2 m_e (eV nm**2)
 
@@ -24,7 +27,10 @@ elif n_us == 2:
 
 	lu = 'fm'
 	Eu = 'MeV'
+	title = "nucleus-nucleus central interaction"
 	print('Mass unit = atomic mass unit')
+	m1 = float(16)
+	m2 = float(4)
 
 	h2m = cst.hbar ** 2 / 2 / cst.atomic_mass / cst.e * 1e24  # hbar**2/2 m_e (MeV fm**2)
 
@@ -36,9 +42,7 @@ print('Length unit = ', lu)
 print('Energy unit = ', Eu)
 
 #m1 = float(input('   enter mass of particle 1: '))
-m1 = float(16)
 #m2 = float(input('   enter mass of particle 2: '))
-m2 = float(4)
 mu = m1*m2/(m1+m2)
 
 h2m = h2m / mu
