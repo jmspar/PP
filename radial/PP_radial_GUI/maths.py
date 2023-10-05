@@ -26,7 +26,7 @@ if n_us == 1:
 	default_barrier_end = 2.2
 	barrier_end = default_barrier_end
 elif n_us == 2:
-	default_l = 0 # orbital angular momentum quantum number
+	default_l = 3 # orbital angular momentum quantum number
 	l = default_l
 	default_V_barrier = -140
 	V_barrier = default_V_barrier
@@ -34,7 +34,7 @@ elif n_us == 2:
 	V_1 = default_V_1
 	default_barrier_start = 0
 	barrier_start = default_barrier_start
-	default_barrier_end = 3
+	default_barrier_end = 5
 	barrier_end = default_barrier_end
 
 potential = [[], []]  # Potential plot data
