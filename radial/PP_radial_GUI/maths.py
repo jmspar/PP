@@ -13,7 +13,7 @@ x_min = 0.000001
 x_max = 10
 calculations = 1000
 
-# Potential
+# Default potential
 if n_us == 1:
 	default_l = 1 # orbital angular momentum quantum number
 	l = default_l
@@ -55,8 +55,8 @@ elif n_us == 2:
 energy = [[x_min, x_max], []]  # Potential plot data
 
 # Wave function
-psi_min = -1
-psi_max = 1
+psi_max = x_max**(-l+1.5)
+psi_min = -psi_max
 psi = [[], []]
 omega = E/cst.e/cst.hbar/1e9    # (ns^{-1})
 
