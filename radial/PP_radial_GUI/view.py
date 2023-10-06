@@ -182,7 +182,7 @@ t_stop.grid(row=0, column=2)
 t_slider.grid(row=0, column=3, sticky=tk.EW)
 t_textbox.grid(row=0, column=4)
 
-l_label.grid(row=0, column=0)
+l_label.grid(row=0, column=0, sticky="w")
 s_wave.grid(row=1, column=0, sticky="w")
 p_wave.grid(row=2, column=0, sticky="w")
 d_wave.grid(row=3, column=0, sticky="w")

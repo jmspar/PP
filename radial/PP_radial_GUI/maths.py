@@ -106,7 +106,7 @@ def calculate_wave_function():
 	""" Calculates the wave function """
 	global psi_max, psi_min, psi
 
-	psi_max = x_max ** (-2*l / 3)
+	psi_max = x_max ** (-2*l / 3) # to keep the wave function visible close to the origin with changing l
 	psi_min = -psi_max
 
 	calculate_constants()
