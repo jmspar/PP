@@ -172,6 +172,7 @@ def update_energy():
 def update_wave_function():
 	""" Updates the wave function """
 	maths.calculate_wave_function()
+	view.ax2.set_ylim(maths.psi_min, maths.psi_max)
 	if view.show_abs.get():
 		view.wave_function_abs.set_data(maths.psi[0], np.absolute(maths.psi[1]))
 	if view.show_real.get():

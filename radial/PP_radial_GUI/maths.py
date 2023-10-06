@@ -55,8 +55,8 @@ elif n_us == 2:
 energy = [[x_min, x_max], []]  # Potential plot data
 
 # Wave function
-psi_max = x_max**(-l+1.5)
-psi_min = -psi_max
+#psi_max = x_max**(-l+1) JMS: moved to calculate_wave_function
+#psi_min = -psi_max
 psi = [[], []]
 omega = E/cst.e/cst.hbar/1e9    # (ns^{-1})
 
@@ -104,7 +104,11 @@ def calculate_energy():
 
 def calculate_wave_function():
 	""" Calculates the wave function """
-	global psi
+	global psi_max, psi_min, psi
+
+	psi_max = x_max ** (-2*l / 3)
+	psi_min = -psi_max
+
 	calculate_constants()
 
 	psi[0] = np.linspace(x_min, x_max, calculations)

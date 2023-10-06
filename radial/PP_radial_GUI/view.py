@@ -49,11 +49,6 @@ ax.set_xlabel('Radius ('+lu+')')
 ax.set_facecolor((1, 1, 1, 0))
 ax.axis()
 
-ax2 = ax.twinx()
-ax2.set_ylim(maths.psi_min, maths.psi_max)
-ax2.set_ylabel('Wave function ('+lu+'$^{-1/2}$)')
-ax2.set_zorder(-1)
-
 maths.calculate_energy()
 energy_plt, = ax.plot(maths.energy[0], maths.energy[1], 'g--', linewidth=1, label="Energy")
 
@@ -64,6 +59,12 @@ maths.calculate_effective_potential()
 effective_potential_plt, = ax.plot(maths.effective_potential[0], maths.effective_potential[1], 'b', linewidth=1, label="Effective potential")
 
 maths.calculate_wave_function()
+
+ax2 = ax.twinx()
+ax2.set_ylim(maths.psi_min, maths.psi_max)
+ax2.set_ylabel('Wave function ('+lu+'$^{-1/2}$)')
+ax2.set_zorder(-1)
+
 show_abs = tk.BooleanVar(value=False)
 wave_function_abs = None
 show_real = tk.BooleanVar(value=True)
