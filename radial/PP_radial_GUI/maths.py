@@ -121,7 +121,7 @@ def calculate_wave_function():
 
 def calculate_constants():
 	""" Calculate needed constants for the wave function """
-	global k_e, k_b, td, sin_d, cos_d
+	global k_e, k_b, sin_d, cos_d, norm #, td
 
 	k_e = np.sqrt(E/h2m + 0j)  # + Oj added to allow square root calculation for negative numbers
 	k_b = np.sqrt((E - V_barrier) / h2m + 0j)
@@ -136,6 +136,9 @@ def calculate_constants():
 
 	# phase-shift cosine (up to a factor)
 	cos_d = k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_yn(l+1,k_e*x_e)-k_b*sp.spherical_yn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)
+
+	norm = 1 / (cos_d * sp.spherical_jn(l, k_e * x_e) - sin_d * sp.spherical_yn(l, k_e * x_e)) \
+                 * sp.spherical_jn(l, k_b * x_e) / k_b**l
 
 def gaussian(x, x_start, direction=1):
     return 1 # error in calculation by Vandentempel
@@ -156,6 +159,4 @@ def wave_function_value(x):
             return sp.spherical_jn(l, k_b * x) * x / k_b**l
         else:  # x > barrier_end
 #            return np.sin(k_e * x) / np.sin(k_e * barrier_end) * np.sin(k_b * barrier_end)/k_b  # l=0 only
-            return (cos_d * sp.spherical_jn(l, k_e * x) - sin_d * sp.spherical_yn(l, k_e * x)) \
-                 / (cos_d * sp.spherical_jn(l, k_e * barrier_end) - sin_d * sp.spherical_yn(l, k_e * barrier_end)) \
-                 *  sp.spherical_jn(l, k_b * barrier_end) * x/k_b**l
+            return (cos_d * sp.spherical_jn(l, k_e * x) - sin_d * sp.spherical_yn(l, k_e * x)) * x * norm
