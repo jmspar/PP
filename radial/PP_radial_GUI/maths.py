@@ -58,6 +58,7 @@ energy = [[x_min, x_max], []]  # Potential plot data
 #psi_max = x_max**(-l+1) JMS: moved to calculate_wave_function
 #psi_min = -psi_max
 psi = [[], []]
+origin_norm = True
 omega = E/cst.e/cst.hbar/1e9    # (ns^{-1})
 
 # Wave
@@ -137,8 +138,7 @@ def calculate_constants():
 	# phase-shift cosine (up to a factor)
 	cos_d = k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_yn(l+1,k_e*x_e)-k_b*sp.spherical_yn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)
 
-	norm = 1 / (cos_d * sp.spherical_jn(l, k_e * x_e) - sin_d * sp.spherical_yn(l, k_e * x_e)) \
-                 * sp.spherical_jn(l, k_b * x_e) / k_b**l
+	norm = sp.spherical_jn(l, k_b * x_e) / (cos_d * sp.spherical_jn(l, k_e * x_e) - sin_d * sp.spherical_yn(l, k_e * x_e))
 
 def gaussian(x, x_start, direction=1):
     return 1 # error in calculation by Vandentempel
@@ -153,10 +153,14 @@ def gaussian(x, x_start, direction=1):
 
 
 def wave_function_value(x):
-        """ Returns value of wave function in x """
-        if x < barrier_end:
-#            return np.sin(k_b * x)/k_b #  l=0 only
-            return sp.spherical_jn(l, k_b * x) * x / k_b**l
-        else:  # x > barrier_end
+	""" Returns value of wave function in x """
+	if x < barrier_end:
+		# return np.sin(k_b * x)/k_b #  l=0 only
+		wf = sp.spherical_jn(l, k_b * x)
+	else:  # x > barrier_end
 #            return np.sin(k_e * x) / np.sin(k_e * barrier_end) * np.sin(k_b * barrier_end)/k_b  # l=0 only
-            return (cos_d * sp.spherical_jn(l, k_e * x) - sin_d * sp.spherical_yn(l, k_e * x)) * x * norm
+		wf = (cos_d * sp.spherical_jn(l, k_e * x) - sin_d * sp.spherical_yn(l, k_e * x)) * norm
+	if origin_norm:
+		return wf * x / k_b**l
+	else:
+		return wf / (cos_d ** 2 + sin_d ** 2) / norm
