@@ -58,7 +58,7 @@ energy = [[x_min, x_max], []]  # Potential plot data
 #psi_max = x_max**(-l+1) JMS: moved to calculate_wave_function
 #psi_min = -psi_max
 psi = [[], []]
-origin_norm = True
+origin_norm = False
 omega = E/cst.e/cst.hbar/1e9    # (ns^{-1})
 
 # Wave
@@ -107,7 +107,10 @@ def calculate_wave_function():
 	""" Calculates the wave function """
 	global psi_max, psi_min, psi
 
-	psi_max = x_max ** (-2*l / 3) # plot interval to keep the wave function visible when changing l
+	if origin_norm:
+		psi_max = x_max ** (-2*l / 3) # plot interval to keep the wave function visible when changing l
+	else:
+		psi_max = 1
 	psi_min = -psi_max
 
 	calculate_constants()
@@ -163,4 +166,4 @@ def wave_function_value(x):
 	if origin_norm:
 		return wf * x / k_b**l
 	else:
-		return wf / (cos_d ** 2 + sin_d ** 2) / norm
+		return wf * k_e * x / np.sqrt(cos_d ** 2 + sin_d ** 2) / norm
