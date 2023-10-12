@@ -159,10 +159,12 @@ wave_packet_bool = tk.BooleanVar(value=maths.wave_packet)
 plane_wave = tk.Radiobutton(right_frame, text="Stationary state", variable=wave_packet_bool, val=False)
 wave_packet = tk.Radiobutton(right_frame, text="Wave packet [disabled]", variable=wave_packet_bool, val=True)
 
-# Creating reset button
-reset_button = tk.Button(right_frame, text="Reset")
+# Creating origin/asymptotic normalization radio buttons
+origin_norm_bool = tk.BooleanVar(value=maths.origin_norm)
+origin_norm = tk.Radiobutton(right_frame, text="Origin normalization", variable=origin_norm_bool, val=True)
+asymptotic_norm = tk.Radiobutton(right_frame, text="Asymptotic normalization", variable=origin_norm_bool, val=False)
 
-# Creating checkboxes
+# Creating wave function checkboxes
 abs_checkbox = tk.Checkbutton(right_frame, text="Modulus", variable=show_abs, command=plot_wave_function_abs)
 real_checkbox = tk.Checkbutton(right_frame, text="Real part", variable=show_real, command=plot_wave_function_real)
 imaginary_checkbox = tk.Checkbutton(right_frame, text="Imaginary", variable=show_imaginary, command=plot_wave_function_imaginary)
@@ -174,6 +176,9 @@ t_play_pause = tk.Button(time_control_frame, text=play_icon)
 t_stop = tk.Button(time_control_frame, text="⏹")
 t_slider = tk.Scale(time_control_frame, from_=maths.t_min, to=maths.t_max, resolution=0.001, orient=tk.HORIZONTAL, showvalue=0)
 t_textbox = tk.Entry(time_control_frame, width=10)
+
+# Creating reset button
+reset_button = tk.Button(right_frame, text="Reset")
 
 # Adding all to view
 t_label.grid(row=0, column=0)
@@ -197,14 +202,15 @@ E_slider.grid(row=6, column=0)
 E_textbox.grid(row=6, column=1, sticky="sew")
 gaussian_slider.grid(row=7, column=0)
 gaussian_textbox.grid(row=7, column=1, sticky="sew")
-reset_button.grid(row=9, column=1, sticky=tk.EW, pady=10)
 plane_wave.grid(row=10, column=0, sticky=tk.W)
 wave_packet.grid(row=11, column=0, sticky=tk.W)
+origin_norm.grid(row=10, column=1, sticky=tk.W)
+asymptotic_norm.grid(row=11, column=1, sticky=tk.W)
 real_checkbox.grid(row=12, column=0, sticky=tk.W)
 imaginary_checkbox.grid(row=13, column=0, sticky=tk.W)
 abs_checkbox.grid(row=12, column=1, sticky=tk.W)
 color_mesh_checkbox.grid(row=13, column=1, sticky=tk.W)
-
+reset_button.grid(row=20, column=1, sticky=tk.EW, pady=10)
 
 def on_closing():
 	controller.playing = False
@@ -240,6 +246,10 @@ def initialise():
 	# Binding state radio button actions
 	plane_wave.configure(command=controller.change_wave_type)
 	wave_packet.configure(command=controller.change_wave_type)
+
+	# Binding wave function normalization radio button actions
+	origin_norm.configure(command=controller.change_norm_type)
+	asymptotic_norm.configure(command=controller.change_norm_type)
 
 	# Binding textbox actions
 	E_textbox.bind("<Return>", controller.update_e_from_tb)

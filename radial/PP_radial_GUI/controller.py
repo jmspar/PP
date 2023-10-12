@@ -196,6 +196,12 @@ def change_wave_type():
 	view.plt.draw()
 	view.canvas.draw()
 
+def change_norm_type():
+	maths.origin_norm = view.origin_norm_bool.get()
+	update_wave_function()
+	view.plt.draw()
+	view.canvas.draw()
+
 
 # Play/pause
 def play():
