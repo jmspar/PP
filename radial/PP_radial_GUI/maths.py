@@ -141,7 +141,9 @@ def calculate_constants():
 	# phase-shift cosine (up to a factor)
 	cos_d = k_e*sp.spherical_jn(l,k_b*x_e)*sp.spherical_yn(l+1,k_e*x_e)-k_b*sp.spherical_yn(l,k_e*x_e)*sp.spherical_jn(l+1,k_b*x_e)
 
-	norm = sp.spherical_jn(l, k_b * x_e) / (cos_d * sp.spherical_jn(l, k_e * x_e) - sin_d * sp.spherical_yn(l, k_e * x_e))
+	norm = (cos_d * sp.spherical_jn(l, k_e * x_e) - sin_d * sp.spherical_yn(l, k_e * x_e))
+	if norm != 0: # to avoid numerical warnings. TODO: correct limit calculation
+		norm = sp.spherical_jn(l, k_b * x_e) / norm
 
 def gaussian(x, x_start, direction=1):
     return 1 # error in calculation by Vandentempel
@@ -166,4 +168,7 @@ def wave_function_value(x):
 	if origin_norm:
 		return wf * x / k_b**l
 	else:
-		return wf * k_e * x * np.sign(cos_d) / np.sqrt(cos_d ** 2 + sin_d ** 2) / norm
+		c2ps2 = np.sqrt(cos_d ** 2 + sin_d ** 2)
+		if norm != 0 and c2ps2 != 0 : # to avoid numerical warnings. TODO: exact limit calculation
+			wf = wf / norm / c2ps2
+		return wf * k_e * x * np.sign(cos_d)
