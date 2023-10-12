@@ -166,4 +166,4 @@ def wave_function_value(x):
 	if origin_norm:
 		return wf * x / k_b**l
 	else:
-		return wf * k_e * x / np.sqrt(cos_d ** 2 + sin_d ** 2) / norm
+		return wf * k_e * x * np.sign(cos_d) / np.sqrt(cos_d ** 2 + sin_d ** 2) / norm
