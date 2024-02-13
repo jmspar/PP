@@ -189,10 +189,6 @@ def reset_values():
 	view.barrier_end_slider.set(maths.barrier_end)
 	update_textbox(view.barrier_end_textbox, round(maths.barrier_end, 3))
 
-	maths.k_0 = maths.default_k_0
-	view.wave_number_slider.set(maths.k_0)
-	update_textbox(view.wave_number_textbox, round(maths.k_0, 3))
-
 	maths.a = maths.default_a
 	view.gaussian_slider.set(maths.a)
 	update_textbox(view.gaussian_textbox, round(maths.a, 3))
