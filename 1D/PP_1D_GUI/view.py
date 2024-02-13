@@ -166,14 +166,15 @@ t_slider = tk.Scale(time_control_frame, from_=maths.t_min, to=maths.t_max, resol
 t_textbox = tk.Entry(time_control_frame, width=10)
 
 # Adding all to view
-t_label.grid(row=0, column=0)
-t_play_pause.grid(row=0, column=1)
-t_stop.grid(row=0, column=2)
-t_slider.grid(row=0, column=3, sticky=tk.EW)
-t_textbox.grid(row=0, column=4)
+nrow=0
+t_label.grid(row=nrow, column=0)
+t_play_pause.grid(row=nrow, column=1)
+t_stop.grid(row=nrow, column=2)
+t_slider.grid(row=nrow, column=3, sticky=tk.EW)
+t_textbox.grid(row=nrow, column=4)
 
-E_slider.grid(row=0, column=0)
-E_textbox.grid(row=0, column=1, sticky="sew")
+E_slider.grid(row=nrow, column=0)
+E_textbox.grid(row=nrow, column=1, sticky="sew")
 V_0_slider.grid(row=1, column=0)
 V_0_textbox.grid(row=1, column=1, sticky="sew")
 V_barrier_slider.grid(row=2, column=0)
@@ -184,8 +185,6 @@ barrier_start_slider.grid(row=4, column=0)
 barrier_start_textbox.grid(row=4, column=1, sticky="sew")
 barrier_end_slider.grid(row=5, column=0)
 barrier_end_textbox.grid(row=5, column=1, sticky="sew")
-wave_number_slider.grid(row=6, column=0)
-wave_number_textbox.grid(row=6, column=1, sticky="sew")
 gaussian_slider.grid(row=7, column=0)
 gaussian_textbox.grid(row=7, column=1, sticky="sew")
 reset_button.grid(row=8, column=1, sticky=tk.EW, pady=10)
@@ -215,7 +214,6 @@ def initialise():
 	V_1_slider.configure(command=controller.update_v_1)
 	barrier_start_slider.configure(command=controller.update_barrier_start)
 	barrier_end_slider.configure(command=controller.update_barrier_end)
-	wave_number_slider.configure(command=controller.update_wave_number)
 	gaussian_slider.configure(command=controller.update_a)
 	t_slider.configure(command=controller.update_t)
 
@@ -235,7 +233,6 @@ def initialise():
 	V_1_textbox.bind("<Return>", controller.update_v_1_from_tb)
 	barrier_start_textbox.bind("<Return>", controller.update_barrier_start_from_tb)
 	barrier_end_textbox.bind("<Return>", controller.update_barrier_end_from_tb)
-	wave_number_textbox.bind("<Return>", controller.update_wave_number_from_tb)
 	gaussian_textbox.bind("<Return>", controller.update_a_from_tb)
 	t_textbox.bind("<Return>", controller.update_t_from_tb)
 
@@ -246,7 +243,6 @@ def initialise():
 	controller.update_textbox(V_1_textbox, maths.V_1)
 	controller.update_textbox(barrier_start_textbox, maths.barrier_start)
 	controller.update_textbox(barrier_end_textbox, maths.barrier_end)
-	controller.update_textbox(wave_number_textbox, maths.k_0)
 	controller.update_textbox(gaussian_textbox, maths.a)
 	controller.update_textbox(t_textbox, maths.t)
 
@@ -256,7 +252,6 @@ def initialise():
 	V_1_slider.set(maths.V_1)
 	barrier_start_slider.set(maths.barrier_start)
 	barrier_end_slider.set(maths.barrier_end)
-	wave_number_slider.set(maths.k_0)
 	gaussian_slider.set(maths.a)
 	t_slider.set(maths.t)
 

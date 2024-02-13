@@ -49,12 +49,8 @@ psi = [[], []]
 
 # Wave
 wave_packet = False
-default_k_0 = 6
-k_0 = default_k_0
-k_0_min = 1
-k_0_max = 15
-alpha = 1
-omega = k_0**2 * alpha / 2
+alpha = 30
+omega = E * alpha / 2
 default_a = 1
 a = default_a
 a_min = 0.1
@@ -99,10 +95,10 @@ def calculate_constants():
 	if E - V_0 <= 0:
 		return
 
-	k_s = np.sqrt((E - V_0) / E) * k_0
-	k_b = np.sqrt((E - V_barrier) / E) * k_0
-	K_b = np.sqrt((V_barrier - E) / E) * k_0
-	k_e = np.sqrt((E - V_1) / E + 0j) * k_0  # + Oj added to allow square root calculation for negative numbers
+	k_s = np.sqrt(E - V_0)
+	k_b = np.sqrt(E - V_barrier)
+	K_b = np.sqrt(V_barrier - E)
+	k_e = np.sqrt(E - V_1 + 0j)  # + Oj added to allow square root calculation for negative numbers
 	x_s = barrier_start
 	x_e = barrier_end
 
