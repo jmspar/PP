@@ -53,7 +53,6 @@ psi = [[], []]
 
 # Wave
 wave_packet = False
-omega = E / hbar
 default_a = 1
 a = default_a
 a_min = 0.1
@@ -87,7 +86,7 @@ def calculate_wave_function():
 	psi[0] = np.linspace(x_min, x_max, calculations)
 	psi[1] = []
 
-	time_factor = np.exp(-1j * omega * t)
+	time_factor = np.exp(-1j * E * t / hbar)
 	for x in psi[0]:
 		psi[1].append(wave_function_value(x) * time_factor)
 
