@@ -49,8 +49,8 @@ psi = [[], []]
 
 # Wave
 wave_packet = False
-alpha = 30
-omega = E * alpha / 2
+hbar = 1/20 # to be adapted by unit choice
+omega = E / hbar
 default_a = 1
 a = default_a
 a_min = 0.1
