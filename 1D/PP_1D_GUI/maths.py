@@ -4,6 +4,10 @@ if __name__ == "__main__":
 
 import numpy as np
 
+# units (to be made realistic!)
+hbar = 0.1
+h2m = 0.1
+
 # Calculation range (nm)
 x_min = -8
 x_max = 10
@@ -49,7 +53,6 @@ psi = [[], []]
 
 # Wave
 wave_packet = False
-hbar = 1/20 # to be adapted by unit choice
 omega = E / hbar
 default_a = 1
 a = default_a
@@ -95,10 +98,10 @@ def calculate_constants():
 	if E - V_0 <= 0:
 		return
 
-	k_s = np.sqrt(E - V_0)
-	k_b = np.sqrt(E - V_barrier)
-	K_b = np.sqrt(V_barrier - E)
-	k_e = np.sqrt(E - V_1 + 0j)  # + Oj added to allow square root calculation for negative numbers
+	k_s = np.sqrt((E - V_0) / h2m)
+	k_b = np.sqrt((E - V_barrier) / h2m)
+	K_b = np.sqrt((V_barrier - E) / h2m)
+	k_e = np.sqrt((E - V_1) / h2m + 0j)  # + Oj added to allow square root calculation for negative numbers
 	x_s = barrier_start
 	x_e = barrier_end
 
