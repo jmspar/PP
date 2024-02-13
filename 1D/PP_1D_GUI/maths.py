@@ -141,11 +141,11 @@ def calculate_constants():
 		T = A / (1j * k_e * np.exp(1j * k_e * x_e))
 
 
-def gaussian(x, x_start, direction=1):
+def gaussian(x, x_start, direction=1): # to be corrected: this is too simple to be true (probably only approximate)
 	if wave_packet:
-		k = k_0
-		v = alpha * k
-		w = a ** 2 + 1j * alpha * t / 2
+		k = np.sqrt(E / h2m)
+		v = 2*h2m/hbar * k
+		w = a ** 2 + 1j * h2m/hbar * t
 		x = x - x_start
 		return np.exp(-((direction * x - v*t)**2)/(4*w))
 	else:
