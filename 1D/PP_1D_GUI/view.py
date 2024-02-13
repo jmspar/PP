@@ -133,8 +133,7 @@ V_barrier_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, reso
 V_1_slider = tk.Scale(right_frame, from_=maths.E_min, to=maths.E_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Potential after barrier (eV)", showvalue=0)
 barrier_start_slider = tk.Scale(right_frame, state="disabled", from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier start (nm) [disabled]", showvalue=0)
 barrier_end_slider = tk.Scale(right_frame, from_=maths.x_min, to=maths.x_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Barrier end (nm)", showvalue=0)
-wave_number_slider = tk.Scale(right_frame, from_=maths.k_0_min, to=maths.k_0_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Wave number (1/nm)", showvalue=0)
-gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian distribution factor", showvalue=0)
+gaussian_slider = tk.Scale(right_frame, from_=maths.a_min, to=maths.a_max, resolution=0.01, orient=tk.HORIZONTAL, length=200, label="Gaussian width (k space)", showvalue=0)
 
 # Creating text boxes
 E_textbox = tk.Entry(right_frame, width=10)
@@ -143,7 +142,6 @@ V_barrier_textbox = tk.Entry(right_frame, width=10)
 V_1_textbox = tk.Entry(right_frame, width=10)
 barrier_start_textbox = tk.Entry(right_frame, width=10, state="disabled")
 barrier_end_textbox = tk.Entry(right_frame, width=10)
-wave_number_textbox = tk.Entry(right_frame, width=10)
 gaussian_textbox = tk.Entry(right_frame, width=10)
 
 # Creating radio buttons
